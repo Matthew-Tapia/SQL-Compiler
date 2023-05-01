@@ -53,25 +53,13 @@ public:
     if (_command.get("command")[0] == "select") {
       _table = Table(_command.get("table_name")[0]);
 
-      if (_command.get("fields")[0] == "*") {
+      if (_command.get("where").size() == 0) {
 
-        if (_command.get("where").size() == 0) {
+        _table.select(_command.get("fields"));
 
-          _table.select(_table.get_fields());
-
-        } else {
-
-          _table.select(_table.get_fields(), _command.get("condition"));
-        }
       } else {
-        if (_command.get("where").size() == 0) {
 
-          _table.select(_command.get("fields"));
-
-        } else {
-
-          _table.select(_command.get("fields"), _command.get("condition"));
-        }
+        _table.select(_command.get("fields"), _command.get("condition"));
       }
     }
 

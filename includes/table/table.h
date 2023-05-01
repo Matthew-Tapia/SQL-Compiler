@@ -210,17 +210,27 @@ public:
   }
 
   Table select(const vector<string> &fields, const Queue<Token *> &expression) {
+
+    vector<string> adjusted_fields;
+
+    if (fields[0] == "*") {
+      adjusted_fields = _fields;
+    } else {
+      adjusted_fields = fields;
+    }
+
     if (expression.size() == 0) {
       Table selected_table(
-          ("_selected_table_" + std::to_string(SELECTED_COUNT)), fields);
+          ("_selected_table_" + std::to_string(SELECTED_COUNT)),
+          adjusted_fields);
 
       SELECTED_COUNT++;
 
       vector<int> field_numbers;
       vector<long> temp;
 
-      for (int i = 0; i < fields.size(); i++) {
-        field_numbers.push_back(getFieldNumber(fields[i]));
+      for (int i = 0; i < adjusted_fields.size(); i++) {
+        field_numbers.push_back(getFieldNumber(adjusted_fields[i]));
       }
 
       for (int i = 0; i < _n_records; ++i) {
@@ -243,25 +253,25 @@ public:
 
     std::vector<MMap<std::string, long>> columns;
 
-    for (std::string str : fields) {
+    for (std::string str : adjusted_fields) {
       columns.push_back(getColumn(str));
     }
 
     RPN rpn(expression);
 
-    vector<long> record_numbers = rpn(fields, columns);
+    vector<long> record_numbers = rpn(adjusted_fields, columns);
 
     _selected = record_numbers;
 
     Table selected_table(("_selected_table_" + std::to_string(SELECTED_COUNT)),
-                         fields);
+                         adjusted_fields);
 
     SELECTED_COUNT++;
 
     vector<int> field_numbers;
 
-    for (int i = 0; i < fields.size(); i++) {
-      field_numbers.push_back(getFieldNumber(fields[i]));
+    for (int i = 0; i < adjusted_fields.size(); i++) {
+      field_numbers.push_back(getFieldNumber(adjusted_fields[i]));
     }
 
     for (int i = 0; i < record_numbers.size(); ++i) {
