@@ -87,8 +87,8 @@ bool sql_basic(bool debug = false) {
 }
 
 bool sql_batch(bool debug = false) {
-  // SQL sql;
-  // sql.batch((string("_!sample01.txt").c_str()));
+  SQL sql;
+  sql.batch((string("_!sample01.txt").c_str()));
   return true;
 }
 

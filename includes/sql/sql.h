@@ -32,6 +32,8 @@ public:
     f.close();
   }
 
+  void batch(const string &cstr) {}
+
   // Process a command and return the result table
   Table command(const string &cstr) {
     _parser.set_string(cstr);
