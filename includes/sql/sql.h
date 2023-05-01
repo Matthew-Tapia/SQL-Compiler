@@ -17,22 +17,46 @@ public:
   SQL() {}
 
   // Process commands from a file
-  SQL(char *&file) {
+  SQL(char *&file) {}
+
+  void batch(const string &cstr) {
+    Table t;
+
     int counter = 0;
-    vector<std::string> temp(500, "");
+    vector<std::string> temp;
 
     fstream f;
-    FileRecord r(temp);
 
-    open_fileRW(f, file);
+    f.open(cstr.c_str(), ios::in);
 
-    r.read(f, counter);
-    std::cout << "";
+    if (f.is_open()) {
+      string str;
+
+      while (getline(f, str)) {
+        temp.push_back(str);
+      }
+    }
+
+    for (string str : temp) {
+      if (str.size() < 2 || str.substr(0, 2) == "//") {
+        std::cout << str << endl;
+      } else {
+        cout << "[" << counter << "]"
+             << " > " << str << endl;
+
+        t = command(str);
+
+        if (str.substr(0, 6) == "select") {
+
+          std::cout << "records selected: " << t.select_recnos() << endl;
+        }
+
+        ++counter;
+      }
+    }
 
     f.close();
   }
-
-  void batch(const string &cstr) {}
 
   // Process a command and return the result table
   Table command(const string &cstr) {
@@ -57,11 +81,12 @@ public:
 
       if (_command.get("where").size() == 0) {
 
-        _table.select(_command.get("fields"));
+        std::cout << _table.select(_command.get("fields")) << endl;
 
       } else {
 
-        _table.select(_command.get("fields"), _command.get("condition"));
+        std::cout << _table.select(_command.get("fields"),
+                                   _command.get("condition"));
       }
     }
 
