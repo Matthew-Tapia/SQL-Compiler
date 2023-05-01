@@ -60,28 +60,28 @@ const int MAKE_TABLE_COMMANDS = 11;
 const int SELECT_COMMANDS = 20;
 
 bool sql_basic(bool debug = false) {
-  // SQL sql;
-  // Table t;
-  // // create the tables
-  // cout << "> " << command_list[0] << endl;
-  // sql.command(command_list[0]);
-  // cout << "table is created" << endl << endl;
-  // // insert to the tables
-  // for (int i = 0; i < MAKE_TABLE_COMMANDS; i++) {
-  //   cout << "> " << command_list[i] << endl;
-  //   t = sql.command(command_list[i]);
-  // }
+  SQL sql;
+  Table t;
+  // create the tables
+  cout << "> " << command_list[0] << endl;
+  sql.command(command_list[0]);
+  cout << "table is created" << endl << endl;
+  // insert to the tables
+  for (int i = 0; i < MAKE_TABLE_COMMANDS; i++) {
+    cout << "> " << command_list[i] << endl;
+    t = sql.command(command_list[i]);
+  }
 
-  // cout << endl << endl;
+  cout << endl << endl;
 
-  // // select the tables
-  // for (int i = MAKE_TABLE_COMMANDS; i < command_list.size(); i++) {
-  //   cout << "> " << command_list[i] << endl;
-  //   t = sql.command(command_list[i]);
-  //   if (debug)
-  //     cout << t << endl;
-  //   cout << "records selected: " << sql.select_recnos() << endl << endl;
-  // }
+  // select the tables
+  for (int i = MAKE_TABLE_COMMANDS; i < command_list.size(); i++) {
+    cout << "> " << command_list[i] << endl;
+    t = sql.command(command_list[i]);
+    if (debug)
+      cout << t << endl;
+    cout << "records selected: " << sql.select_recnos() << endl << endl;
+  }
 
   return true;
 }

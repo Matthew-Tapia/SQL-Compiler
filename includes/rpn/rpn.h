@@ -63,8 +63,11 @@ public:
           }
         }
 
-        std::vector<long> eval =
-            evaluateRelational(columns[i], b->as_string(), t->as_string());
+        std::vector<long> eval;
+
+        if (fields[i] == a->as_string()) {
+          eval = evaluateRelational(columns[i], b->as_string(), t->as_string());
+        }
 
         Universal *temp = new Universal(eval);
 
@@ -77,8 +80,9 @@ public:
         b = stack.top();
         stack.pop();
 
-        std::vector<long> eval =
-            evaluateLogical(a->get_list(), b->get_list(), t->as_string());
+        std::vector<long> eval;
+
+        eval = evaluateLogical(a->get_list(), b->get_list(), t->as_string());
 
         Universal *temp = new Universal(eval);
 

@@ -8,11 +8,10 @@
 
 using namespace std;
 
-template <typename T>
-class Queue {
- public:
+template <typename T> class Queue {
+public:
   class Iterator {
-   public:
+  public:
     // Give access to list to access _ptr
     friend class Queue;
 
@@ -54,8 +53,8 @@ class Queue {
       return it;
     }
 
-   private:
-    node<T> *_ptr;  // pointer being encapsulated
+  private:
+    node<T> *_ptr; // pointer being encapsulated
   };
 
   // constructor: CTOR
@@ -66,7 +65,10 @@ class Queue {
 
   ~Queue() { _clear_list(_front); }
 
-  Queue<T> &operator=(const Queue<T> &RHS) { _front = _copy_list(RHS._front); }
+  Queue<T> &operator=(const Queue<T> &RHS) {
+    _front = _copy_list(RHS._front);
+    return *this;
+  }
 
   // Operations:
   void push(T item) {
@@ -117,7 +119,7 @@ class Queue {
   template <typename U>
   friend ostream &operator<<(ostream &outs, const Queue<U> &printMe);
 
- private:
+private:
   node<T> *_front;
   node<T> *_rear;
   int _size;
@@ -133,4 +135,4 @@ ostream &operator<<(ostream &outs, const Queue<U> &printMe) {
 
 // TODO
 
-#endif  // MYQUEUE_H
+#endif // MYQUEUE_H

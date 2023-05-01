@@ -50,7 +50,7 @@ public:
 
     } else {
 
-      vector<std::string> temp(5000, "");
+      vector<std::string> temp(500, "");
 
       _title = title;
       _n_records = 0;
@@ -64,7 +64,7 @@ public:
 
       int field_count = 0;
 
-      for (int i = 0; i < 5000; ++i) {
+      for (int i = 0; i < 500; ++i) {
         if (strlen(r.get_records()[i]) != 0) {
           _fields.push_back(r.get_records()[i]);
           ++field_count;
