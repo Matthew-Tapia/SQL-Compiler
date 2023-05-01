@@ -1,0 +1,16 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+static int SELECTED_COUNT = 0;
+
+enum TOKEN_TYPES {
+  L_PAREN,
+  RELATIONAL,
+  LOGICAL,
+  STR,
+  UNIVERSAL,
+  R_PAREN,
+  UKNOWN
+};
+
+#endif // CONSTANTS_H
